@@ -1,14 +1,22 @@
 import * as React from 'react'; 
-// Or simply remove it if you aren't using the 'React' keyword in your code.
 import { Link } from "react-router-dom";
 import { FaLinkedin, FaTwitter, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { CONTACT_INFO } from "../../data/mockData";
 import SabollaLogo from "../../assets/logo/sabolla_logo.png";
 
 const Footer: React.FC = () => {
+  // Define explicit paths to match App.tsx routes exactly
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Products', path: '/products' },
+    { name: 'Partners', path: '/partners' },
+    { name: 'Contact', path: '/contact' }
+  ];
+
   return (
     <footer className="bg-[#122C21] text-[#F9F2D6] font-['Montserrat'] border-t border-[#308667]/30 pt-24 pb-12 relative overflow-hidden">
-      {/* Background Brand Pattern Accent */}
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none" 
         style={{ backgroundImage: `url('/pattern.png')`, backgroundSize: '400px' }} 
@@ -17,7 +25,6 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
           
-          {/* ================= BRAND COLUMN (Span 5) ================= */}
           <div className="lg:col-span-5 space-y-8">
             <Link to="/" className="inline-block transform transition-transform hover:scale-105">
               <img
@@ -40,27 +47,25 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* ================= NAVIGATION COLUMN (Span 3) ================= */}
           <div className="lg:col-span-3">
             <h5 className="text-[10px] font-black uppercase tracking-[0.5em] text-[#308667] mb-8">
               Corporate Intelligence
             </h5>
             <ul className="space-y-4">
-              {['Home', 'About Us', 'Services', 'Products', 'Partners'].map((item) => (
-                <li key={item}>
+              {navLinks.map((link) => (
+                <li key={link.name}>
                   <Link 
-                    to={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '')}`} 
+                    to={link.path} 
                     className="text-sm font-bold uppercase tracking-widest text-[#F9F2D6]/60 hover:text-[#308667] transition-colors flex items-center gap-3 group"
                   >
                     <span className="w-0 h-0.5 bg-[#308667] transition-all group-hover:w-4" />
-                    {item}
+                    {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* ================= CONTACT COLUMN (Span 4) ================= */}
           <div className="lg:col-span-4 bg-white/5 p-8 rounded-[2rem] border border-white/10">
             <h5 className="text-[10px] font-black uppercase tracking-[0.5em] text-[#308667] mb-8">
               Global Command Center
@@ -88,7 +93,6 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* ================= BOTTOM LEGAL BAR ================= */}
         <div className="pt-12 border-t border-[#F9F2D6]/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#F9F2D6]/40">
             © {new Date().getFullYear()} Sabolla International Trading PLC. Engineered for Excellence.
