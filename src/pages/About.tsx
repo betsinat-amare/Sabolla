@@ -30,10 +30,11 @@ const AboutPage: React.FC = () => {
   const activeContent = VISION_MISSION_VALUES.find(item => item.key === activeTab);
 
   return (
-    // Increased pt-48 to handle the large logo height in your header
-    <div className="w-full min-h-screen bg-[#FCFAF2] font-['Montserrat'] text-[#0B1A13] pt-48 overflow-x-hidden selection:bg-[#308667] selection:text-white">
+    // Main background set to a bright "Bone" color (#F4F5F0) 
+    // This is bright but allows white nav-links to remain visible
+    <div className="w-full min-h-screen bg-[#cff4e4] font-['Montserrat'] text-[#0B1A13] pt-48 overflow-x-hidden selection:bg-[#308667] selection:text-white">
       
-      {/* ================= HERO SECTION (Properly Spaced) ================= */}
+      {/* ================= HERO SECTION ================= */}
       <section className="relative pb-24 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
@@ -67,9 +68,9 @@ const AboutPage: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="lg:col-span-5 relative min-h-[450px]"
             >
+              {/* Decorative accent behind the image */}
               <div className="absolute inset-0 bg-[#308667] rounded-[3rem] translate-x-3 translate-y-3" />
               <div className="relative h-full w-full rounded-[3rem] overflow-hidden shadow-2xl">
-                {/* Professional Meeting Image - Better for 'About' */}
                 <img 
                   src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1000" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
@@ -81,10 +82,9 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-    
-
-      {/* ================= THE FOUNDATION (Brighter Tone background) ================= */}
-      <section className="py-24 bg-[#F2EBD3] border-y border-[#0B1A13]/5">
+      {/* ================= THE FOUNDATION ================= */}
+      {/* Using a slightly darker "Sand" tone here for section separation */}
+      <section className="py-24 bg-[#EBE9E0] border-y border-[#0B1A13]/5">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
@@ -102,7 +102,7 @@ const AboutPage: React.FC = () => {
                     className={`flex items-center justify-between p-6 rounded-2xl transition-all duration-300 text-left
                       ${activeTab === item.key 
                         ? 'bg-[#0B1A13] text-white shadow-xl translate-x-2' 
-                        : 'bg-[#FCFAF2] text-[#0B1A13] hover:bg-[#308667]/10'}`}
+                        : 'bg-[#cff4e4] text-[#0B1A13] hover:bg-[#308667]/10'}`}
                   >
                     <div className="flex items-center gap-4">
                       <span className={`${activeTab === item.key ? 'text-[#308667]' : 'text-[#0B1A13]/20'}`}>
@@ -125,7 +125,7 @@ const AboutPage: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="bg-[#FCFAF2] p-10 md:p-16 rounded-[2.5rem] border-l-8 border-[#308667] shadow-lg min-h-[380px] flex flex-col justify-center"
+                  className="bg-[#F4F5F0] p-10 md:p-16 rounded-[2.5rem] border-l-8 border-[#308667] shadow-lg min-h-[380px] flex flex-col justify-center"
                 >
                   <span className="text-[10px] font-black text-[#308667] uppercase tracking-widest mb-4">
                     Deep Dive

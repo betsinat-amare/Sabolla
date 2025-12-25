@@ -46,9 +46,13 @@ const Header: React.FC = () => {
         setUnderline({ left: 0, width: 0 });
       }
     };
-    updateUnderline();
+    // Small timeout ensures DOM is painted for correct offset calculation
+    const timeout = setTimeout(updateUnderline, 50);
     window.addEventListener('resize', updateUnderline);
-    return () => window.removeEventListener('resize', updateUnderline);
+    return () => {
+      window.removeEventListener('resize', updateUnderline);
+      clearTimeout(timeout);
+    };
   }, [location.pathname]);
 
   return (
@@ -61,10 +65,9 @@ const Header: React.FC = () => {
             ? "bg-[#0B1A13] py-2 shadow-2xl" 
             : "bg-transparent py-6"}`}
       >
-        {/* justify-between handles the spacing between Logo and Nav */}
         <div className="container mx-auto px-6 flex items-center justify-between">
           
-          {/* LOGO - Left Aligned */}
+          {/* LOGO - Fixed to the LEFT */}
           <Link to="/" className="relative z-[90] transition-transform hover:scale-105 shrink-0">
             <img
               src={SabollaLogo}
@@ -74,43 +77,45 @@ const Header: React.FC = () => {
             />
           </Link>
 
-          {/* Desktop Nav - ml-auto pushes it to the RIGHT */}
-          <nav ref={navRef} className="hidden lg:flex items-center space-x-10 relative ml-auto">
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.path;
-              if (item.isPrimary) {
+          {/* DESKTOP NAVIGATION - Forced to the RIGHT */}
+          <div className="hidden lg:flex flex-1 justify-end items-center">
+            <nav ref={navRef} className="flex items-center space-x-8 relative">
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                if (item.isPrimary) {
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      className="ml-6 px-8 py-3 rounded-full bg-[#308667] text-white text-[11px] font-black uppercase tracking-[0.2em] hover:bg-[#F9F2D6] hover:text-[#0B1A13] transition-all shadow-lg"
+                    >
+                      {item.name}
+                    </Link>
+                  );
+                }
                 return (
                   <Link
                     key={item.name}
                     to={item.path}
-                    className="ml-4 px-8 py-3 rounded-full bg-[#308667] text-white text-[11px] font-black uppercase tracking-[0.2em] hover:bg-[#F9F2D6] hover:text-[#0B1A13] transition-all shadow-lg"
+                    className={`text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-300 py-2
+                      ${isActive ? "text-[#165940]" : "text-[#39ad83] hover:text-[#1f6048]"}`}
                   >
                     {item.name}
                   </Link>
                 );
-              }
-              return (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className={`text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-300 py-2
-                    ${isActive ? "text-[#308667]" : "text-[#F9F2D6] hover:text-[#308667]"}`}
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
-            
-            {/* Animated Underline */}
-            <motion.span
-              className="absolute bottom-0 h-0.5 bg-[#308667] rounded-full"
-              animate={{ left: underline.left, width: underline.width }}
-              transition={{ type: "spring", stiffness: 350, damping: 30 }}
-            />
-          </nav>
+              })}
+              
+              {/* Animated Underline */}
+              <motion.span
+                className="absolute bottom-0 h-0.5 bg-[#308667] rounded-full"
+                animate={{ left: underline.left, width: underline.width }}
+                transition={{ type: "spring", stiffness: 350, damping: 30 }}
+              />
+            </nav>
+          </div>
 
-          {/* Mobile Menu Toggle - Stays Right */}
-          <div className="lg:hidden flex justify-end">
+          {/* MOBILE TOGGLE - Stays Right */}
+          <div className="lg:hidden">
             <button
               className="relative z-[90] flex items-center gap-3 group"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -128,7 +133,7 @@ const Header: React.FC = () => {
         </div>
       </motion.header>
 
-      {/* MOBILE MENU OVERLAY (remains unchanged as it's already full-screen) */}
+      {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
