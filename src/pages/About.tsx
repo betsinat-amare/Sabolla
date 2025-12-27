@@ -53,12 +53,12 @@ const AboutPage: React.FC = () => {
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-[#0B1A13] leading-[1.1] uppercase tracking-tighter mb-8">
-                Your <span className="text-[#308667]">Strategic</span> <br/> 
-                Trade Ally.
+               Who <span className="text-[#308667]"> We </span> 
+                Are
               </h1>
               
               <p className="text-lg md:text-xl text-[#0B1A13] max-w-2xl font-bold leading-snug">
-                SABOLLA INTERNATIONAL TRADING PLC is a leading foreign trade agency with over two decades
+                Sabolla International Trading plc is a leading foreign trade agency with over two decades
                 of experience connecting global businesses to Ethiopian markets.
               </p>
             </motion.div>

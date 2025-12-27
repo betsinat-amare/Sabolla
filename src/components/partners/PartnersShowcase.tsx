@@ -63,7 +63,7 @@ const PartnersShowcase: React.FC<PartnersShowcaseProps> = ({ partners }) => {
 
       <AnimatePresence mode="wait">
         {!isExpanded ? (
-          /* ================= CAROUSEL MODE (With Grayscale Effect) ================= */
+          /* ================= CAROUSEL MODE ================= */
           <motion.div key="carousel" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative group">
             <button onClick={() => manualScroll("left")} className="absolute left-0 top-1/2 -translate-y-1/2 z-40 bg-white p-5 rounded-full shadow-2xl opacity-0 group-hover:opacity-100 transition-all text-[#122C21] hover:bg-[#308667] hover:text-white border border-slate-100"><FaChevronLeft size={20} /></button>
             <button onClick={() => manualScroll("right")} className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-white p-5 rounded-full shadow-2xl opacity-0 group-hover:opacity-100 transition-all text-[#122C21] hover:bg-[#308667] hover:text-white border border-slate-100"><FaChevronRight size={20} /></button>
@@ -75,7 +75,7 @@ const PartnersShowcase: React.FC<PartnersShowcaseProps> = ({ partners }) => {
             </div>
           </motion.div>
         ) : (
-          /* ================= GRID MODE (Full Color, No Grayscale) ================= */
+          /* ================= GRID MODE ================= */
           <motion.div key="grid" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} className="px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {partners.map((partner, i) => (
@@ -112,8 +112,8 @@ const PartnersShowcase: React.FC<PartnersShowcaseProps> = ({ partners }) => {
 
               <div className="flex justify-center mb-6">
                 {React.isValidElement(activePartner.icon) ? 
-                  React.cloneElement(activePartner.icon as React.ReactElement, { style: { width: '100px', height: '100px', objectFit: 'contain' } }) : 
-                  <span className="text-6xl">{activePartner.icon}</span>
+                  React.cloneElement(activePartner.icon as React.ReactElement, { style: { width: '120px', height: '120px', objectFit: 'contain' } }) : 
+                  <span className="text-8xl">{activePartner.icon}</span>
                 }
               </div>
               
@@ -144,28 +144,29 @@ const PartnersShowcase: React.FC<PartnersShowcaseProps> = ({ partners }) => {
 const PartnerCard = ({ partner, onClick, isGrid = false }: { partner: Partner, onClick: () => void, isGrid?: boolean }) => (
   <motion.div
     onClick={onClick}
-    whileHover={{ y: -5, borderColor: '#308667' }}
-    className={`${isGrid ? 'w-full' : 'min-w-[280px]'} bg-white rounded-[2rem] shadow-sm p-8 flex flex-col items-center justify-center text-center border border-[#122C21]/15 cursor-pointer transition-all group snap-center whitespace-normal`}
+    whileHover={{ y: -8, borderColor: '#308667' }}
+    className={`${isGrid ? 'w-full' : 'min-w-[320px]'} bg-white rounded-[2.5rem] shadow-sm p-10 flex flex-col items-center justify-center text-center border border-[#122C21]/10 cursor-pointer transition-all duration-300 group snap-center whitespace-normal hover:shadow-2xl hover:shadow-[#308667]/10`}
   >
-    <div className="mb-4 h-16 flex items-center justify-center">
+    {/* ICON CONTAINER: Increased height and width for larger 100px icons */}
+    <div className="mb-6 h-28 flex items-center justify-center w-full">
       {typeof partner.icon === "string" ? (
-        <span className="text-4xl block">{partner.icon}</span>
+        <span className="text-6xl block">{partner.icon}</span>
       ) : (
         React.isValidElement(partner.icon) ? 
         React.cloneElement(partner.icon as React.ReactElement, { 
-          style: { width: '70px', height: '70px', objectFit: 'contain' },
-          // CONDITION: In Grid Mode, show full color (grayscale-0 and opacity-100) instantly
-          className: `transition-all duration-500 ${isGrid ? 'grayscale-0 opacity-100' : 'grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100'}`
-        }) : "🤝"
+          // Set to 100px width/height for high visibility
+          style: { width: '100px', height: '100px', objectFit: 'contain' },
+          className: `transition-all duration-700 ${isGrid ? 'grayscale-0 opacity-100' : 'grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100'}`
+        }) : <span className="text-5xl">🤝</span>
       )}
     </div>
     
-    <h3 className={`font-black text-[9px] uppercase tracking-[0.2em] mb-4 transition-all ${isGrid ? 'text-[#122C21]' : 'text-[#122C21]/80 group-hover:text-[#122C21]'}`}>
+    <h3 className={`font-black text-[11px] uppercase tracking-[0.2em] mb-5 transition-all ${isGrid ? 'text-[#122C21]' : 'text-[#122C21]/60 group-hover:text-[#122C21]'}`}>
       {partner.name}
     </h3>
     
-    <div className={`flex items-center gap-2 text-[7px] font-black uppercase tracking-[0.3em] px-3 py-1.5 rounded-full border transition-all duration-300 ${isGrid ? 'bg-[#308667] text-white border-transparent shadow-md' : 'text-[#308667] bg-[#308667]/5 border-[#308667]/10 group-hover:bg-[#308667] group-hover:text-white'}`}>
-        <FaPlus size={6} /> View Profile
+    <div className={`flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.3em] px-5 py-2.5 rounded-full border transition-all duration-300 ${isGrid ? 'bg-[#308667] text-white border-transparent shadow-md' : 'text-[#308667] bg-[#308667]/5 border-[#308667]/10 group-hover:bg-[#308667] group-hover:text-white group-hover:shadow-lg group-hover:shadow-[#308667]/20'}`}>
+        <FaPlus size={7} /> View Profile
     </div>
   </motion.div>
 );

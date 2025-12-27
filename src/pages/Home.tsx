@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
-// Updated Icons for better relevance
 import { 
-  FaTrophy,     // For Awards
-  FaHandshake,  // For Partners
-  FaFileContract, // For Tenders
-  FaHistory,    // For Experience
-  FaTruckLoading // For Shipments
+  FaTrophy, 
+  FaHandshake, 
+  FaFileContract, 
+  FaHistory, 
+  FaTruckLoading, 
+  FaArrowRight 
 } from "react-icons/fa";
 
 import GlobalFootprint from "../components/sections/GlobalFootprint";
@@ -43,7 +43,12 @@ const Counter = ({ value, duration = 2 }: { value: number; duration?: number }) 
 };
 
 const Home: React.FC = () => {
-  const dynamicTexts = ["Gateway", "Trade Representation", "Market Solution", "Trade Pathway"];
+  const dynamicTexts = [
+    "Gateway to Growth", 
+    "Trade Representation", 
+    "Market Solutions", 
+    "Strategic Pathway"
+  ];
   const [textIndex, setTextIndex] = React.useState(0);
 
   React.useEffect(() => {
@@ -52,77 +57,100 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    // Background changed from #F9F2D6 (yellowish) to #FCFAF2 (bright bone/off-white)
-    <div className="w-full overflow-x-hidden font-['Montserrat'] font-medium text-[#09140F] bg-[#FCFAF2]">
+    <div className="w-full overflow-x-hidden font-['Montserrat'] bg-[#FCFAF2] text-[#0B1A13]">
 
-{/* ================= HERO SECTION (Increased Blur & Brightness) ================= */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-[#F9F2D6] overflow-hidden pt-32 pb-20">
-        <motion.div 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 20, ease: "easeOut" }}
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80')",
-            // Increased blur from 6px/8px to 12px for a more "dreamy" industrial look
-            // Brightness kept at 0.7 to satisfy the "make it brighter" requirement
-            filter: "blur(12px) brightness(0.7)", 
-          }}
-        />
+      {/* ================= HERO SECTION (Fixed Overlap & Layout) ================= */}
+      <section className="relative min-h-screen flex items-start pt-32 pb-20 overflow-hidden bg-[#cff4e4]">
         
-        {/* Refined Gradient: Stronger top/bottom fades to help the header and white section transition */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1A13]/90 via-[#0B1A13]/30 to-[#FCFAF2]" /> 
+        {/* Background Accents */}
+        <div className="absolute top-0 right-0 w-1/4 h-full bg-[#0B1A13] hidden lg:block" />
+        <div className="absolute top-1/2 left-0 w-64 h-64 bg-[#308667]/10 rounded-full blur-[120px]" />
 
-        <div className="relative z-10 container mx-auto px-6 max-w-5xl text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-tight tracking-tighter uppercase text-white">
-            <span className="block drop-shadow-lg">Your</span>
-            <div className="relative h-[1.2em] flex justify-center items-center">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={dynamicTexts[textIndex]}
-                  initial={{ y: 20, opacity: 0, filter: "blur(10px)" }}
-                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                  exit={{ y: -20, opacity: 0, filter: "blur(10px)" }}
-                  transition={{ duration: 0.8 }}
-                  className="text-[#4adea2] absolute whitespace-nowrap drop-shadow-[0_0_25px_rgba(74,222,162,0.5)]"
-                >
-                  {dynamicTexts[textIndex]}
-                </motion.span>
-              </AnimatePresence>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            
+            {/* LEFT SIDE: Content */}
+            <div className="w-full lg:w-3/5">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+              
+
+                <h1 className="text-5xl md:text-7xl lg:text-5xl font-black leading-[1.1] tracking-tighter uppercase mb-6">
+                  Your <br />
+                  <div className="inline-block min-h-[1.2em]">
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={dynamicTexts[textIndex]}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-[#308667] block"
+                      >
+                        {dynamicTexts[textIndex]}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
+                  <br /> to Ethiopia.
+                </h1>
+
+                <p className="text-xl md:text-xl text-[#0B1A13]/70 max-w-xl font-medium leading-relaxed mb-8">
+                  Navigating the complexities of East African trade. We bridge the gap between world-class technology and Ethiopia's industrial landscape.
+                </p>
+
+                <div className="flex flex-wrap gap-6">
+                  <Link to="/services" className="group flex items-center gap-4 bg-[#0B1A13] text-white px-10 py-5 rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-[#308667] transition-all duration-300 shadow-2xl">
+                    Our Services
+                    <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
+                  </Link>
+                  <Link to="/contact" className="group flex items-center gap-4 border-2 border-[#0B1A13] text-[#0B1A13] px-10 py-5 rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-[#0B1A13] hover:text-white transition-all duration-300">
+                    Get in Touch
+                  </Link>
+                </div>
+              </motion.div>
             </div>
-            <span className="block text-2xl md:text-4xl mt-4 font-bold tracking-widest opacity-90 drop-shadow-md">
-              to Ethiopia’s Market
-            </span>
-          </h1>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-12 flex flex-col sm:flex-row gap-5 justify-center"
-          >
-            <Link to="/services" className="group relative px-10 py-4 rounded-full bg-[#308667] text-white font-black text-[11px] uppercase tracking-widest overflow-hidden transition-all shadow-2xl">
-              <span className="relative z-10">Expand Your Reach</span>
-              <div className="absolute inset-0 bg-[#0B1A13] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-            </Link>
-            <Link to="/contact" className="px-10 py-4 rounded-full border-2 border-white text-white font-black text-[11px] uppercase tracking-widest hover:bg-white hover:text-black transition-all">
-              Consult an Expert
-            </Link>
-          </motion.div>
+            {/* RIGHT SIDE: Visual */}
+        {/* RIGHT SIDE: Visual - Fixed to match the provided layout image */}
+<div className="w-full lg:w-2/5 relative flex justify-center items-center">
+  <motion.div 
+    initial={{ opacity: 0, x: 50 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 1, ease: "easeOut" }}
+    className="relative w-full max-w-[450px]" 
+  >
+    {/* 1. Large Decorative background accent (The green box from your image) */}
+    {/* This is positioned absolutely to sit behind and extend below the image */}
+    
+    
+    {/* 2. Main Image Container */}
+    <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl aspect-[4/5]">
+      <img 
+        src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1000" 
+        alt="Industrial Trade"
+        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+      />
+    </div>
+  </motion.div>
+</div>
+          </div>
         </div>
       </section>
 
-      {/* ================= MILESTONES SECTION (Redesigned Cards) ================= */}
+      {/* ================= MILESTONES SECTION (Corrected Spacing) ================= */}
       <section className="py-24 relative overflow-hidden bg-white">
         <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <div className="text-center mb-16">
             <span className="text-[10px] font-black text-[#308667] uppercase tracking-[0.4em]">Proven Track Record</span>
-            <h3 className="text-4xl md:text-5xl font-black text-[#0B1A13] mt-2 uppercase">Milestones of Excellence</h3>
+            <h3 className="text-4xl md:text-5xl font-black text-[#0B1A13] mt-2 uppercase tracking-tighter">Milestones of Excellence</h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             
-            {/* Award Card - Content expanded to fill */}
+            {/* Award Card */}
             <motion.div 
               whileHover={{ y: -10 }}
               className="md:col-span-7 bg-[#0B1A13] rounded-[2.5rem] p-12 relative overflow-hidden group border border-[#308667]/20 shadow-2xl min-h-[400px] flex flex-col justify-center"
@@ -134,32 +162,33 @@ const Home: React.FC = () => {
                 <div className="bg-[#308667] w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-[#308667]/20">
                   <FaTrophy size={32} className="text-white" />
                 </div>
-                <h4 className="text-4xl md:text-5xl font-black text-white leading-tight mb-6 uppercase">
+                <h4 className="text-4xl md:text-5xl font-black text-white leading-tight mb-6 uppercase tracking-tighter">
                   Winner of <br/><span className="text-[#308667]">Kalmar's 2016</span> <br/>Global Award
                 </h4>
-                <p className="text-white/60 text-lg max-w-md leading-relaxed">
+                <p className="text-white/60 text-lg max-w-md leading-relaxed font-medium">
                   Recognized for unparalleled operational excellence and strategic market growth within the East African heavy machinery sector.
                 </p>
               </div>
             </motion.div>
 
-            {/* Partners Card - Stat filled */}
+            {/* Partners Card with Gap */}
             <motion.div 
               whileHover={{ y: -10 }}
               className="md:col-span-5 bg-[#308667] rounded-[2.5rem] p-12 flex flex-col justify-between items-center text-center text-white relative overflow-hidden shadow-2xl"
             >
               <div className="relative z-10 mt-8">
                 <FaHandshake size={64} className="mx-auto mb-6 opacity-80" />
-                <span className="text-8xl font-black block tracking-tighter mb-4 drop-shadow-lg">
-                  <Counter value={100} />+
+                <span className="text-8xl font-black flex items-center justify-center tracking-tighter mb-4 drop-shadow-lg">
+                  <Counter value={100} />
+                  <span className="ml-4 opacity-30 text-[#0B1A13]">+</span>
                 </span>
                 <p className="text-xl font-black uppercase tracking-[0.2em] opacity-90">Global Industrial Partners</p>
               </div>
               <div className="w-full h-1 bg-white/20 mt-8" />
-              <p className="mt-4 text-white/70 text-sm">Forging links with the world's most trusted manufacturers.</p>
+              <p className="mt-4 text-white/70 text-sm font-bold uppercase tracking-widest">Forging Links Worldwide</p>
             </motion.div>
 
-            {/* Small Stat Cards */}
+            {/* Small Stat Cards with Gaps */}
             {[
               { label: "Active Tenders", val: 500, icon: <FaFileContract />, color: "bg-white text-[#0B1A13] border-gray-100" },
               { label: "Years Experience", val: 20, icon: <FaHistory />, color: "bg-[#F9F2D6] text-[#0B1A13] border-transparent" },
@@ -171,7 +200,10 @@ const Home: React.FC = () => {
                 className={`md:col-span-4 rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-lg border ${item.color}`}
               >
                 <div className="mb-4 text-3xl opacity-80">{item.icon}</div>
-                <span className="text-5xl font-black mb-2 tracking-tighter"><Counter value={item.val} />+</span>
+                <span className="text-5xl font-black mb-2 tracking-tighter flex items-center">
+                  <Counter value={item.val} />
+                  <span className="ml-3 opacity-40 font-bold">+</span>
+                </span>
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60 text-center">{item.label}</span>
               </motion.div>
             ))}
@@ -180,68 +212,35 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ================= WHO WE ARE (Brighter) ================= */}
-      <section className="relative py-24 bg-[#FCFAF2] overflow-hidden border-y border-black/5">
-        <div className="relative container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}>
-              <h2 className="text-5xl font-black text-[#122C21] uppercase tracking-tighter">
-                Who <span className="text-[#308667]">We Are</span>
-              </h2>
-              <div className="w-20 h-2 bg-[#308667] mt-4" />
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} className="space-y-6">
-              <p className="text-xl text-[#122C21] font-bold leading-snug">
-                SABOLLA INTERNATIONAL TRADING PLC is the premier bridge between global technology and the Ethiopian market.
-              </p>
-              <p className="text-lg text-[#122C21]/80 leading-relaxed font-medium">
-                We simplify the complexities of East African trade through localized expertise, logistics mastery, and a relentless commitment to our partners' success.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       <GlobalFootprint />
-
-      {/* ================= PARTNERS SECTION (White BG) ================= */}
-      <section className="relative py-24 bg-white overflow-hidden">
-        {/* ... (Existing Partners Section but ensure background is pure #FFFFFF) */}
+      
+      <section className="relative py-24 bg-white">
         <div className="container mx-auto px-6 max-w-7xl">
-           <div className="text-center mb-24">
+          <div className="text-center mb-24">
             <h2 className="text-3xl md:text-5xl font-black text-[#122C21] mb-4 uppercase tracking-tighter">
               Strategic <span className="text-[#308667]">Partners</span>
             </h2>
-            <div className="w-16 h-1 bg-[#308667] mx-auto mb-6" />
+            <div className="w-16 h-1 bg-[#308667] mx-auto" />
           </div>
-          {/* Scrollable logic remains the same */}
           <div className="space-y-32">
-             <div className="relative">
-                <div className="flex gap-6 overflow-x-auto pb-8 no-scrollbar cursor-grab">
-                  <PartnersShowcase partners={PARTNERS} variant="scrollable" />
-                </div>
-             </div>
-             <div className="relative">
-                <div className="flex gap-6 overflow-x-auto pb-8 no-scrollbar">
-                  <PartnersShowcase partners={LOCAL_PARTNERS} variant="scrollable" />
-                </div>
-             </div>
+             <PartnersShowcase partners={PARTNERS} variant="scrollable" />
+             <PartnersShowcase partners={LOCAL_PARTNERS} variant="scrollable" />
           </div>
         </div>
       </section>
 
       <TestimonialsSection />
 
-      {/* ================= FINAL CTA ================= */}
-      <section className="relative py-32 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-fixed bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1920')" }} />
-        <div className="absolute inset-0 bg-[#0B1A13]/80" />
-        <div className="relative z-10 container mx-auto px-6 max-w-4xl text-center">
-          <h3 className="text-4xl md:text-6xl font-black mb-10 leading-tight uppercase">Ready to Expand <br/> <span className="text-[#4adea2]">Into Ethiopia?</span></h3>
-          <Link to="/contact" className="inline-block bg-[#4adea2] text-[#0B1A13] font-black py-5 px-12 rounded-full text-[12px] uppercase tracking-widest hover:bg-white transition-all shadow-2xl">
-            Talk to our Strategists
+      <section className="py-32 bg-[#0B1A13] relative overflow-hidden text-center">
+        <div className="container mx-auto px-6 relative z-10">
+          <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-10 leading-none">
+            Ready to Build <br/> <span className="text-[#308667]">the Future?</span>
+          </h2>
+          <Link to="/contact" className="inline-block bg-[#308667] text-white px-12 py-6 rounded-full font-black text-[12px] uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl shadow-[#308667]/30">
+            Consult our experts
           </Link>
         </div>
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#308667_1px,transparent_1px)] [background-size:40px_40px]" />
       </section>
     </div>
   );
