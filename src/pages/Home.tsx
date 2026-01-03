@@ -138,85 +138,104 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-{/* ================= MILESTONES (Exact Bento Style) ================= */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          
-          {/* Main Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            
-            {/* 1. LARGE AWARD CARD (Dark Forest Green) */}
-            <div className="md:col-span-7 bg-[#0B1A13] rounded-[2.5rem] p-10 lg:p-14 relative overflow-hidden shadow-lg border border-white/5 group">
-              {/* Trophy Watermark Icon */}
-              <div className="absolute right-6 top-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                 <svg width="180" height="180" viewBox="0 0 24 24" fill="white"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v3c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 0 0 3.61-1.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2M5 10V7h2v3c0 1.21-.88 2.22-2 2.39V10m14 2.39c-1.12-.17-2-1.18-2-2.39V7h2v3z"/></svg>
-              </div>
-              
-              <div className="relative z-10 h-full flex flex-col justify-center">
-                <div className="w-12 h-12 rounded-2xl bg-[#308667] flex items-center justify-center mb-10 shadow-[0_0_20px_rgba(48,134,103,0.4)]">
-                   <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 16H6V4h12zM8 7h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg>
-                </div>
-                <h4 className="text-3xl md:text-4xl font-black text-white leading-tight uppercase tracking-tight mb-6">
-                  Winner of <br/> 
-                  <span className="text-[#308667]">Kalmar's 2013</span> <br/>
-                  Global Award
-                </h4>
-                <p className="text-white/40 text-sm leading-relaxed max-w-sm">
-                  Recognized for unparalleled operational excellence and strategic market growth within the East African heavy machinery sector.
-                </p>
-              </div>
-            </div>
-
-            {/* 2. PARTNERS CARD (Solid Emerald Green) */}
-            <div className="md:col-span-5 bg-[#308667] rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-lg group">
-               <div className="absolute top-10 opacity-20">
-                 <FaHandshake size={80} className="text-white" />
-               </div>
-               <div className="relative z-10 flex flex-col items-center">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-8xl font-black text-white tracking-tighter"><Counter value={100} /></span>
-                    <span className="text-6xl font-black text-white/40">+</span>
-                  </div>
-                  <p className="text-xs font-black uppercase tracking-[0.3em] text-white mt-4">Global Industrial Partners</p>
-                  <div className="w-full h-[1px] bg-white/20 my-8" />
-                  <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Forging Links Worldwide</p>
-               </div>
-            </div>
-
-            {/* 3. TENDERS (White Card) */}
-            <div className="md:col-span-4 bg-white rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-sm border border-gray-100 group">
-                <FaFileContract size={32} className="text-[#0B1A13] mb-6 opacity-80 group-hover:scale-110 transition-transform" />
-                <div className="flex items-center gap-1">
-                  <span className="text-5xl font-black text-[#0B1A13] tracking-tighter"><Counter value={500} /></span>
-                  <span className="text-4xl font-black text-[#308667]">+</span>
-                </div>
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-4">Active Tenders</p>
-            </div>
-
-            {/* 4. EXPERIENCE (Cream Card) */}
-            <div className="md:col-span-4 bg-[#F9F6E5] rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-sm group">
-                <FaHistory size={32} className="text-[#0B1A13] mb-6 opacity-80 group-hover:rotate-12 transition-transform" />
-                <div className="flex items-center gap-1">
-                  <span className="text-5xl font-black text-[#0B1A13] tracking-tighter"><Counter value={20} /></span>
-                  <span className="text-4xl font-black text-[#308667]">+</span>
-                </div>
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-4">Years Experience</p>
-            </div>
-
-            {/* 5. LOGISTICS (Dark Forest Green Small) */}
-            <div className="md:col-span-4 bg-[#0B1A13] rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-lg group border border-white/5">
-                <FaTruckLoading size={32} className="text-[#308667] mb-6 group-hover:translate-x-2 transition-transform" />
-                <div className="flex items-center gap-1">
-                  <span className="text-5xl font-black text-white tracking-tighter"><Counter value={150} /></span>
-                  <span className="text-4xl font-black text-[#308667]">+</span>
-                </div>
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mt-4">Shipments Logged</p>
-            </div>
-
+{/* ================= MILESTONES (Bento Style with Award Image) ================= */}
+<section className="py-24 bg-white">
+  <div className="container mx-auto px-6 max-w-6xl">
+    
+    {/* Main Bento Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+      
+      {/* 1. LARGE AWARD CARD (Dark Forest Green) */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="md:col-span-7 bg-[#0B1A13] rounded-[2.5rem] p-10 lg:p-14 relative overflow-hidden shadow-lg border border-white/5 group flex flex-col md:flex-row items-center"
+      >
+        {/* Background Watermark */}
+        <div className="absolute -right-10 -top-10 text-[15rem] font-black text-white/[0.02] select-none pointer-events-none group-hover:text-[#308667]/5 transition-colors duration-700">S</div>
+        
+        {/* Text Content */}
+        <div className="relative z-10 flex-1 h-full flex flex-col justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-[#308667] flex items-center justify-center mb-10 shadow-[0_0_20px_rgba(48,134,103,0.4)]">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 16H6V4h12zM8 7h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg>
           </div>
+          <h4 className="text-3xl md:text-4xl font-black text-white leading-tight uppercase tracking-tight mb-6">
+            Winner of <br/> 
+            <span className="text-[#308667]">Kalmar's 2013</span> <br/>
+            Global Award
+          </h4>
+          <p className="text-white/40 text-sm leading-relaxed max-w-sm">
+            Recognized for unparalleled operational excellence and strategic market growth within the East African heavy machinery sector.
+          </p>
         </div>
-      </section>
 
+        {/* Integrated Award Image with Float Animation */}
+        <div className="relative z-10 mt-8 md:mt-0 md:ml-6 flex justify-center">
+          <div className="absolute inset-0 bg-[#308667]/20 blur-[40px] rounded-full scale-75 group-hover:bg-[#308667]/30 transition-colors duration-700" />
+          <motion.img 
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            src={award}
+            alt="Kalmar Sales Agent of the Year Award" 
+            className="h-64 lg:h-72 w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-700 relative z-10"
+          />
+        </div>
+      </motion.div>
+
+      {/* 2. PARTNERS CARD (Solid Emerald Green) */}
+      <motion.div 
+        initial={{ opacity: 0, x: 20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        className="md:col-span-5 bg-[#308667] rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-lg group"
+      >
+         <div className="absolute top-10 opacity-20">
+           <FaHandshake size={80} className="text-white" />
+         </div>
+         <div className="relative z-10 flex flex-col items-center">
+            <div className="flex items-baseline gap-2">
+              <span className="text-8xl font-black text-white tracking-tighter"><Counter value={100} /></span>
+              <span className="text-6xl font-black text-white/40">+</span>
+            </div>
+            <p className="text-xs font-black uppercase tracking-[0.3em] text-white mt-4">Global Industrial Partners</p>
+            <div className="w-full h-[1px] bg-white/20 my-8" />
+            <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Forging Links Worldwide</p>
+         </div>
+      </motion.div>
+
+      {/* 3. TENDERS (White Card) */}
+      <div className="md:col-span-4 bg-white rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-sm border border-gray-100 group">
+          <FaFileContract size={32} className="text-[#0B1A13] mb-6 opacity-80 group-hover:scale-110 transition-transform" />
+          <div className="flex items-center gap-1">
+            <span className="text-5xl font-black text-[#0B1A13] tracking-tighter"><Counter value={500} /></span>
+            <span className="text-4xl font-black text-[#308667]">+</span>
+          </div>
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-4">Active Tenders</p>
+      </div>
+
+      {/* 4. EXPERIENCE (Cream Card) */}
+      <div className="md:col-span-4 bg-[#F9F6E5] rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-sm group">
+          <FaHistory size={32} className="text-[#0B1A13] mb-6 opacity-80 group-hover:rotate-12 transition-transform" />
+          <div className="flex items-center gap-1">
+            <span className="text-5xl font-black text-[#0B1A13] tracking-tighter"><Counter value={20} /></span>
+            <span className="text-4xl font-black text-[#308667]">+</span>
+          </div>
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-4">Years Experience</p>
+      </div>
+
+      {/* 5. LOGISTICS (Dark Forest Green Small) */}
+      <div className="md:col-span-4 bg-[#0B1A13] rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-lg group border border-white/5">
+          <FaTruckLoading size={32} className="text-[#308667] mb-6 group-hover:translate-x-2 transition-transform" />
+          <div className="flex items-center gap-1">
+            <span className="text-5xl font-black text-white tracking-tighter"><Counter value={150} /></span>
+            <span className="text-4xl font-black text-[#308667]">+</span>
+          </div>
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mt-4">Shipments Logged</p>
+      </div>
+
+    </div>
+  </div>
+</section>
       <GlobalFootprint />
       
       {/* ================= PARTNERS SECTION ================= */}
