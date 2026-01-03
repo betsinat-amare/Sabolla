@@ -19,13 +19,7 @@ export type Partner = {
 };
 
 export const PARTNERS: Partner[] = [
-  {
-    name: "ASI (Europe) Ltd.",
-    description:
-      "ASI (Europe) Ltd. is a trusted global supplier of high-quality electronic components for commercial and military applications. With decades of experience and deep market expertise, ASI is recognized worldwide for delivering reliable, hard-to-source electronic solutions.",
-    website: "https://www.asieurope.net/",
-    icon: React.createElement('img', { src: ASI, alt: 'ASI Europe', className: 'w-10 h-10 object-contain' }),
-  },
+  
   {
     name: "Meraj International FZC",
     description:
