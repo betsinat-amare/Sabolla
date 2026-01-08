@@ -1,35 +1,29 @@
 import * as React from 'react';
 import { motion } from "framer-motion";
 import PartnersShowcase from "../components/partners/PartnersShowcase";
-// import TestimonialsSection from "../components/sections/TestimonialsSection";
-
-// Full data imports from your files
 import { PARTNERS } from "../data/partners";
 import { LOCAL_PARTNERS } from "../data/localPartners";
 import Topfooter from '../components/layout/Topfooter';
 
 const PartnersPage: React.FC = () => {
   return (
-    <div className="bg-[#F9F2D6] min-h-screen font-['Montserrat']">
+    <div className="bg-white min-h-screen font-sans text-[#122C21] overflow-x-hidden pt-20">
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative bg-[#122C21] pt-48 pb-32 overflow-hidden">
-        {/* Subtle Brand Pattern */}
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
           style={{ backgroundImage: `url('/pattern.png')`, backgroundSize: '400px' }}
         />
 
         <div className="container mx-auto px-6 relative z-10 max-w-7xl text-center">
-
-
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-5xl md:text-7xl font-black text-[#F9F2D6] uppercase tracking-tighter leading-[0.85] mb-8"
           >
-            Strategic   <span className="text-[#308667]">Synergy</span>
+            Strategic <span className="text-[#308667]">Synergy</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -43,11 +37,11 @@ const PartnersPage: React.FC = () => {
         </div>
       </section>
 
-       {/* ================= PARTNERS SECTION ================= */}
-      <section className="relative py-32 bg-white">
+      {/* ================= PARTNERS SECTION ================= */}
+      <section className="relative py-32 bg-[#F9F2D6] border-y border-[#122C21]/5">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="text-center mb-24">
-            <h2 className="text-5xl md:text-7xl font-black text-[#122C21] uppercase tracking-tighter mb-6">
+            <h2 className="text-2xl md:text-4xl font-black text-[#122C21] uppercase tracking-tighter mb-6">
               Trusted <span className="text-[#308667]">Partners</span>
             </h2>
             <div className="w-24 h-2 bg-[#308667] mx-auto mb-8 rounded-full" />
@@ -58,16 +52,22 @@ const PartnersPage: React.FC = () => {
           </div>
 
           <div className="space-y-32">
+            {/* International Section */}
             <div className="relative">
-              <div className="absolute -left-10 top-0 text-[12rem] font-black text-[#122C21]/5 leading-none pointer-events-none">INTL</div>
+              <div className="absolute -left-10 top-0 text-[10rem] md:text-[12rem] font-black text-[#122C21]/5 leading-none pointer-events-none">
+                INTL
+              </div>
               <h3 className="relative z-10 text-sm font-black text-[#308667] uppercase tracking-[0.5em] mb-12 text-center lg:text-left">
                 International Partners
               </h3>
               <PartnersShowcase partners={PARTNERS} />
             </div>
 
+            {/* Local Section */}
             <div className="relative">
-              <div className="absolute -right-10 top-0 text-[12rem] font-black text-[#122C21]/5 leading-none pointer-events-none text-right">LOCAL</div>
+              <div className="absolute -right-10 top-0 text-[10rem] md:text-[12rem] font-black text-[#122C21]/5 leading-none pointer-events-none text-right">
+                LOCAL
+              </div>
               <h3 className="relative z-10 text-xs font-black text-[#308667] uppercase tracking-[0.5em] mb-12 text-center lg:text-right">
                 Local & Government Partners
               </h3>
@@ -76,10 +76,6 @@ const PartnersPage: React.FC = () => {
           </div>
         </div>
       </section>
-
-
-      {/* ================= TESTIMONIALS ================= */}
-      {/* <TestimonialsSection /> */}
 
       {/* ================= CALL TO ACTION ================= */}
       <Topfooter />
