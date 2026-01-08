@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
-import { 
-  FaHandshake, 
-  FaFileContract, 
-  FaHistory, 
-  FaTruckLoading, 
+import {
+  FaHandshake,
+  FaFileContract,
+  FaHistory,
+  FaTruckLoading,
   FaArrowRight
 } from "react-icons/fa";
 
@@ -15,7 +15,8 @@ import { PARTNERS } from "../data/partners";
 import { LOCAL_PARTNERS } from "../data/localPartners";
 import TestimonialsSection from "../components/sections/TestimonialsSection";
 import Topfooter from '../components/layout/Topfooter';
-import { award } from '../assets/asset';
+import { award } from '../assets/asset'; // Importing your asset
+import SabollaPattern from '../components/ui/SabollaPattern';
 
 const Counter = ({ value, duration = 2 }: { value: number; duration?: number }) => {
   const [count, setCount] = React.useState(0);
@@ -43,6 +44,11 @@ const Counter = ({ value, duration = 2 }: { value: number; duration?: number }) 
   return <span ref={ref}>{count}</span>;
 };
 
+const useScrollParallax = (speed: number) => {
+  const { scrollY } = useScroll();
+  return useTransform(scrollY, [0, 500], [0, 500 * speed]);
+};
+
 const Home: React.FC = () => {
   const dynamicTexts = ["Gateway to Growth", "Trade Representation", "Market Solutions", "Strategic Pathway"];
   const [textIndex, setTextIndex] = React.useState(0);
@@ -52,28 +58,72 @@ const Home: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Motion values for 3D tilt and spotlight glow
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { stiffness: 100, damping: 30 };
+  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-10, 10]), springConfig);
+
+  const spotlightX = useSpring(useTransform(mouseX, [-300, 300], ["0%", "100%"]), springConfig);
+  const spotlightY = useSpring(useTransform(mouseY, [-300, 300], ["0%", "100%"]), springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   return (
     <div className="w-full overflow-x-hidden font-['Montserrat'] bg-white text-[#0B1A13]">
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative min-h-screen flex items-center pt-20 bg-white overflow-hidden">
-        <div className="absolute top-24 left-4 md:left-10 text-[6rem] md:text-[12rem] font-black text-gray-100/80 select-none z-0 tracking-tighter opacity-100">
+      <section className="relative min-h-screen flex items-center pt-32 md:pt-40 bg-white overflow-hidden">
+        {/* Parallax Background Text */}
+        <motion.div
+          style={{ y: useScrollParallax(0.2) }}
+          className="absolute top-24 left-4 md:left-10 text-[6rem] md:text-[12rem] font-black text-gray-100/80 select-none z-0 tracking-tighter opacity-100"
+        >
           SABOLLA
+        </motion.div>
+
+        {/* Ambient Floating Orbs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <motion.div
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 20, 0],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#308667]/5 blur-[100px] rounded-full"
+          />
+          <motion.div
+            animate={{
+              y: [0, 40, 0],
+              x: [0, -30, 0],
+              scale: [1, 1.2, 1]
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#0B1A13]/5 blur-[120px] rounded-full"
+          />
         </div>
 
         <div className="container mx-auto px-6 lg:px-20 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-10">
-            
-            <div className="w-full lg:w-3/5">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <h1 className="text-4xl md:text-7xl lg:text-5xl font-black leading-[1.1] tracking-tighter uppercase mb-6">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div className="w-full lg:w-[55%]">
+              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                <h1 className="text-4xl md:text-7xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tighter uppercase mb-6">
                   Your <br />
-                  {/* RESPONSIVE DYNAMIC TEXT CONTAINER */}
-                  <div className="relative inline-block w-full min-h-[1.2em] text-[1.7rem] sm:text-4xl md:text-7xl lg:text-5xl">
+                  <div className="relative inline-block w-full min-h-[1.2em]">
                     <AnimatePresence mode="wait">
                       <motion.span
                         key={dynamicTexts[textIndex]}
@@ -89,15 +139,12 @@ const Home: React.FC = () => {
                   </div>
                   <br /> to Ethiopia.
                 </h1>
-
                 <p className="text-lg md:text-xl text-[#0B1A13]/70 max-w-xl font-medium leading-relaxed mb-8">
                   Navigating the complexities of East African trade. We bridge the gap between world-class technology and Ethiopia's industrial landscape.
                 </p>
-
                 <div className="flex flex-wrap gap-4 md:gap-6">
                   <Link to="/services" className="group flex items-center gap-4 bg-[#0B1A13] text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-[#308667] transition-all duration-300 shadow-xl">
-                    Our Services
-                    <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
+                    Our Services <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
                   </Link>
                   <Link to="/contact" className="group flex items-center gap-4 border-2 border-[#0B1A13] text-[#0B1A13] px-8 md:px-10 py-4 md:py-5 rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-[#0B1A13] hover:text-white transition-all duration-300">
                     Get in Touch
@@ -105,51 +152,106 @@ const Home: React.FC = () => {
                 </div>
               </motion.div>
             </div>
-
-            <div className="w-full lg:w-1/2 relative flex justify-center items-center h-[400px] lg:h-[700px]">
-              <motion.div 
+            <div
+              className="w-full lg:w-[45%] relative flex justify-center lg:justify-end items-center h-[350px] md:h-[500px] lg:h-[min(700px,80vh)]"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
+              <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
+                style={{ rotateX, rotateY, perspective: 1000 }}
                 transition={{ duration: 1.2 }}
-                className="relative w-full h-full flex items-center justify-center"
+                className="relative w-full h-full flex items-center justify-center lg:justify-end lg:translate-x-12"
               >
-                <div className="relative w-72 h-72 lg:w-[480px] lg:h-[480px] bg-gradient-to-br from-white to-gray-50 rounded-full shadow-[0_50px_100px_rgba(48,134,103,0.12)] flex items-center justify-center border border-gray-100">
-                   <span className="text-[10rem] lg:text-[18rem] font-black text-[#308667]/20 absolute z-10 select-none">S</span>
-                   <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/world-map.png')] bg-center bg-no-repeat bg-contain" />
-                   <motion.div 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute w-[95%] h-[95%] border-[10px] lg:border-[20px] border-[#308667] rounded-full border-t-transparent opacity-80" 
-                   />
+                <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[min(420px,60vh)] lg:h-[min(420px,60vh)] flex items-center justify-center">
+
+                  {/* Main Glassmorphic Central Unit */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/100 to-white/60 backdrop-blur-3xl rounded-full shadow-[0_50px_100px_rgba(48,134,103,0.1)] border border-gray-100 z-0 overflow-hidden">
+                    {/* Interactive Spotlight Glow */}
+                    <motion.div
+                      style={{
+                        left: spotlightX,
+                        top: spotlightY,
+                        translateX: "-50%",
+                        translateY: "-50%"
+                      }}
+                      className="absolute w-64 h-64 bg-white/40 blur-[60px] rounded-full pointer-events-none z-10"
+                    />
+                  </div>
+
+                  {/* World Map Texture */}
+                  <div className="absolute inset-0 opacity-[0.08] bg-[url('https://www.transparenttextures.com/patterns/world-map.png')] bg-center bg-no-repeat bg-contain rounded-full" />
+
+                  {/* Sabolla Pattern - Enhanced Centering and Scale with Color Transition */}
+                  <motion.div
+                    whileHover={{
+                      scale: 1.15,
+                      rotate: 5,
+                      filter: "drop-shadow(0 0 30px rgba(48,134,103,0.3))"
+                    }}
+                    animate={{
+                      color: ["rgba(48, 134, 103, 0.4)", "rgba(48, 134, 103, 1)"],
+                    }}
+                    transition={{
+                      scale: { type: "spring", stiffness: 400, damping: 10 },
+                      color: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+                      rotate: { type: "spring", stiffness: 200 }
+                    }}
+                    className="relative z-20 w-1/2 h-1/2 flex items-center justify-center cursor-default transition-all duration-300"
+                  >
+                    <SabollaPattern className="w-full h-full select-none animate-pulse" />
+                  </motion.div>
+
+                  {/* Complex SVG Ring System */}
+                  <div className="absolute inset-0 z-0">
+                    {/* Main Rotating Pulse Ring - High Visibility */}
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{
+                        rotate: { duration: 30, repeat: Infinity, ease: "linear" },
+                        scale: { type: "spring", stiffness: 300, damping: 20 }
+                      }}
+                      className="absolute inset-0"
+                    >
+                      <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
+                        <motion.circle
+                          cx="50" cy="50" r="48"
+                          fill="none"
+                          animate={{
+                            stroke: ["rgba(48, 134, 103, 0.4)", "rgba(48, 134, 103, 1)"],
+                            strokeWidth: [2.5, 5, 2.5]
+                          }}
+                          transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                          strokeDasharray="180 120"
+                          strokeLinecap="round"
+                          className="drop-shadow-[0_0_8px_rgba(48,134,103,0.2)]"
+                        />
+                      </svg>
+                    </motion.div>
+                  </div>
                 </div>
-                <motion.div animate={{ y: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 4 }} className="absolute top-10 right-10 w-10 h-10 bg-[#308667]/20 rounded-full blur-sm" />
-                <motion.div animate={{ y: [0, 20, 0] }} transition={{ repeat: Infinity, duration: 5 }} className="absolute bottom-20 left-0 w-12 h-12 bg-[#308667] rounded-full shadow-lg" />
               </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ================= MILESTONES SECTION ================= */}
+      {/* ================= MILESTONES (Synchronized Bento Box Grid) ================= */}
       <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="md:col-span-7 bg-[#0B1A13] rounded-[2.5rem] p-10 lg:p-14 relative overflow-hidden shadow-lg border border-white/5 group flex flex-col md:flex-row items-center"
-            >
-              <div className="absolute -right-10 -top-10 text-[15rem] font-black text-white/[0.02] select-none pointer-events-none group-hover:text-[#308667]/5 transition-colors duration-700">S</div>
-              
-              <div className="relative z-10 flex-1 h-full flex flex-col justify-center">
+        <div className="container mx-auto px-6 max-w-7xl"> {/* Increased max-width for better PC spacing */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-fr">
+
+            {/* 1. LARGE AWARD CARD */}
+            <div className="md:col-span-7 bg-[#05110B] rounded-[2.5rem] p-10 lg:p-14 relative overflow-hidden shadow-lg border border-white/5 group flex flex-col md:flex-row items-center gap-8">
+              <div className="relative z-10 flex-1 flex flex-col justify-center">
                 <div className="w-12 h-12 rounded-2xl bg-[#308667] flex items-center justify-center mb-10 shadow-[0_0_20px_rgba(48,134,103,0.4)]">
-                   <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 16H6V4h12zM8 7h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 16H6V4h12zM8 7h8v2H8zm0 4h8v2H8zm0 4h5v2H8z" /></svg>
                 </div>
                 <h4 className="text-3xl md:text-4xl font-black text-white leading-tight uppercase tracking-tight mb-6">
-                  Winner of <br/> 
-                  <span className="text-[#308667]">Kalmar's 2013</span> <br/>
+                  Winner of <br />
+                  <span className="text-[#308667]">Kalmar's 2016</span> <br />
                   Global Award
                 </h4>
                 <p className="text-white/40 text-sm leading-relaxed max-w-sm">
@@ -157,67 +259,74 @@ const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="relative z-10 mt-8 md:mt-0 md:ml-6 flex justify-center">
-                <div className="absolute inset-0 bg-[#308667]/20 blur-[40px] rounded-full scale-75 group-hover:bg-[#308667]/30 transition-colors duration-700" />
-                <motion.img 
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              <div className="relative z-10 w-full md:w-1/3 flex justify-center">
+                <div className="absolute inset-0 bg-[#308667]/20 blur-[40px] rounded-full scale-75" />
+                <motion.img
                   src={award}
-                  alt="Kalmar Award" 
-                  className="h-64 lg:h-72 w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-700 relative z-10"
+                  alt="Kalmar Award"
+                  animate={{ y: [0, -12, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="h-56 md:h-64 w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)] relative z-10"
                 />
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="md:col-span-5 bg-[#308667] rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-lg group"
-            >
-               <div className="absolute top-10 opacity-20"><FaHandshake size={80} className="text-white" /></div>
-               <div className="relative z-10 flex flex-col items-center">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-8xl font-black text-white tracking-tighter"><Counter value={100} /></span>
-                    <span className="text-6xl font-black text-white/40">+</span>
-                  </div>
-                  <p className="text-xs font-black uppercase tracking-[0.3em] text-white mt-4">Global Industrial Partners</p>
-                  <div className="w-full h-[1px] bg-white/20 my-8" />
-                  <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Forging Links Worldwide</p>
-               </div>
-            </motion.div>
+            {/* 2. PARTNERS CARD - Duration 3s */}
+            <div className="md:col-span-5 bg-[#308667] rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-lg group">
+              <div className="absolute top-10 opacity-20"><FaHandshake size={80} className="text-white" /></div>
+              <div className="relative z-10 flex flex-col items-center">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-8xl font-black text-white tracking-tighter">
+                    <Counter value={100} duration={3} />
+                  </span>
+                  <span className="text-6xl font-black text-white/40">+</span>
+                </div>
+                <p className="text-xs font-black uppercase tracking-[0.3em] text-white mt-4">Global Industrial Partners</p>
+                <div className="w-full h-[1px] bg-white/20 my-8" />
+                <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Forging Links Worldwide</p>
+              </div>
+            </div>
 
+            {/* 3. TENDERS - Duration 3s */}
             <div className="md:col-span-4 bg-white rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-sm border border-gray-100 group">
-                <FaFileContract size={32} className="text-[#0B1A13] mb-6 opacity-80 group-hover:scale-110 transition-transform" />
-                <div className="flex items-center gap-1">
-                  <span className="text-5xl font-black text-[#0B1A13] tracking-tighter"><Counter value={500} /></span>
-                  <span className="text-4xl font-black text-[#308667]">+</span>
-                </div>
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-4">Active Tenders</p>
+              <FaFileContract size={32} className="text-[#0B1A13] mb-6 opacity-80" />
+              <div className="flex items-center gap-1">
+                <span className="text-5xl font-black text-[#0B1A13] tracking-tighter">
+                  <Counter value={500} duration={3} />
+                </span>
+                <span className="text-4xl font-black text-[#308667]">+</span>
+              </div>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-4">Active Tenders</p>
             </div>
 
+            {/* 4. EXPERIENCE - Duration 3s */}
             <div className="md:col-span-4 bg-[#F9F6E5] rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-sm group">
-                <FaHistory size={32} className="text-[#0B1A13] mb-6 opacity-80 group-hover:rotate-12 transition-transform" />
-                <div className="flex items-center gap-1">
-                  <span className="text-5xl font-black text-[#0B1A13] tracking-tighter"><Counter value={20} /></span>
-                  <span className="text-4xl font-black text-[#308667]">+</span>
-                </div>
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-4">Years Experience</p>
+              <FaHistory size={32} className="text-[#0B1A13] mb-6 opacity-80" />
+              <div className="flex items-center gap-1">
+                <span className="text-5xl font-black text-[#0B1A13] tracking-tighter">
+                  <Counter value={20} duration={3} />
+                </span>
+                <span className="text-4xl font-black text-[#308667]">+</span>
+              </div>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-4">Years Experience</p>
             </div>
 
+            {/* 5. LOGISTICS - Duration 3s */}
             <div className="md:col-span-4 bg-[#0B1A13] rounded-[2rem] p-10 flex flex-col items-center justify-center shadow-lg group border border-white/5">
-                <FaTruckLoading size={32} className="text-[#308667] mb-6 group-hover:translate-x-2 transition-transform" />
-                <div className="flex items-center gap-1">
-                  <span className="text-5xl font-black text-white tracking-tighter"><Counter value={150} /></span>
-                  <span className="text-4xl font-black text-[#308667]">+</span>
-                </div>
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mt-4">Shipments Logged</p>
+              <FaTruckLoading size={32} className="text-[#308667] mb-6" />
+              <div className="flex items-center gap-1">
+                <span className="text-5xl font-black text-white tracking-tighter">
+                  <Counter value={150} duration={3} />
+                </span>
+                <span className="text-4xl font-black text-[#308667]">+</span>
+              </div>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mt-4">Shipments Logged</p>
             </div>
           </div>
         </div>
       </section>
 
       <GlobalFootprint />
-      
       <section className="relative py-32 bg-white">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="text-center mb-24">
@@ -241,7 +350,6 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-
       <TestimonialsSection />
       <Topfooter />
     </div>

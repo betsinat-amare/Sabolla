@@ -22,6 +22,7 @@ const PartnersShowcase: React.FC<PartnersShowcaseProps> = ({ partners }) => {
     const scrollInterval = setInterval(() => {
       if (!isPaused) {
         container.scrollLeft += 1;
+        // Adjusted for seamless loop logic
         if (container.scrollLeft >= container.scrollWidth / 2) {
           container.scrollLeft = 0;
         }
@@ -49,7 +50,6 @@ const PartnersShowcase: React.FC<PartnersShowcaseProps> = ({ partners }) => {
       
       {/* HEADER SECTION */}
       <div className="flex justify-between items-end mb-12 px-4">
-        
         <button 
           onClick={() => setIsExpanded(!isExpanded)}
           className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#122C21] hover:text-[#308667] transition-all border-b-2 border-[#308667]/20 pb-1"
@@ -62,10 +62,18 @@ const PartnersShowcase: React.FC<PartnersShowcaseProps> = ({ partners }) => {
         {!isExpanded ? (
           /* ================= CAROUSEL MODE ================= */
           <motion.div key="carousel" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative group">
-            <button onClick={() => manualScroll("left")} className="absolute left-0 top-1/2 -translate-y-1/2 z-40 bg-white p-5 rounded-full shadow-2xl opacity-0 group-hover:opacity-100 transition-all text-[#122C21] hover:bg-[#308667] hover:text-white border border-slate-100"><FaChevronLeft size={20} /></button>
-            <button onClick={() => manualScroll("right")} className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-white p-5 rounded-full shadow-2xl opacity-0 group-hover:opacity-100 transition-all text-[#122C21] hover:bg-[#308667] hover:text-white border border-slate-100"><FaChevronRight size={20} /></button>
+            <button onClick={() => manualScroll("left")} className="absolute left-0 top-1/2 -translate-y-1/2 z-40 bg-white p-5 rounded-full shadow-2xl opacity-0 lg:group-hover:opacity-100 transition-all text-[#122C21] hover:bg-[#308667] hover:text-white border border-slate-100 hidden lg:flex"><FaChevronLeft size={20} /></button>
+            <button onClick={() => manualScroll("right")} className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-white p-5 rounded-full shadow-2xl opacity-0 lg:group-hover:opacity-100 transition-all text-[#122C21] hover:bg-[#308667] hover:text-white border border-slate-100 hidden lg:flex"><FaChevronRight size={20} /></button>
 
-            <div ref={scrollRef} className="flex gap-8 overflow-x-hidden whitespace-nowrap scroll-smooth px-4 no-scrollbar" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+            {/* UPDATED DIV: Added overflow-x-auto and touch-pan-x for mobile finger scrolling */}
+            <div 
+              ref={scrollRef} 
+              className="flex gap-8 overflow-x-auto whitespace-nowrap scroll-smooth px-4 no-scrollbar touch-pan-x active:cursor-grabbing" 
+              onMouseEnter={() => setIsPaused(true)} 
+              onMouseLeave={() => setIsPaused(false)}
+              onTouchStart={() => setIsPaused(true)}
+              onTouchEnd={() => setIsPaused(false)}
+            >
               {[...partners, ...partners].map((partner, i) => (
                 <PartnerCard key={i} partner={partner} onClick={() => setActivePartner(partner)} />
               ))}
@@ -144,25 +152,23 @@ const PartnerCard = ({ partner, onClick, isGrid = false }: { partner: Partner, o
     whileHover={{ y: -8, borderColor: '#308667' }}
     className={`${isGrid ? 'w-full' : 'min-w-[320px]'} bg-white rounded-[2.5rem] shadow-sm p-10 flex flex-col items-center justify-center text-center border border-[#122C21]/10 cursor-pointer transition-all duration-300 group snap-center whitespace-normal hover:shadow-2xl hover:shadow-[#308667]/10`}
   >
-    {/* ICON CONTAINER: Increased height and width for larger 100px icons */}
     <div className="mb-6 h-28 flex items-center justify-center w-full">
       {typeof partner.icon === "string" ? (
         <span className="text-6xl block">{partner.icon}</span>
       ) : (
         React.isValidElement(partner.icon) ? 
         React.cloneElement(partner.icon as React.ReactElement, { 
-          // Set to 100px width/height for high visibility
           style: { width: '100px', height: '100px', objectFit: 'contain' },
-          className: `transition-all duration-700 ${isGrid ? 'grayscale-0 opacity-100' : 'grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100'}`
+          className: `transition-all duration-700 ${isGrid ? 'grayscale-0 opacity-100' : 'grayscale opacity-50 lg:group-hover:grayscale-0 lg:group-hover:opacity-100'}`
         }) : <span className="text-5xl">🤝</span>
       )}
     </div>
     
-    <h3 className={`font-black text-[11px] uppercase tracking-[0.2em] mb-5 transition-all ${isGrid ? 'text-[#122C21]' : 'text-[#122C21]/60 group-hover:text-[#122C21]'}`}>
+    <h3 className={`font-black text-[11px] uppercase tracking-[0.2em] mb-5 transition-all ${isGrid ? 'text-[#122C21]' : 'text-[#122C21]/60 lg:group-hover:text-[#122C21]'}`}>
       {partner.name}
     </h3>
     
-    <div className={`flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.3em] px-5 py-2.5 rounded-full border transition-all duration-300 ${isGrid ? 'bg-[#308667] text-white border-transparent shadow-md' : 'text-[#308667] bg-[#308667]/5 border-[#308667]/10 group-hover:bg-[#308667] group-hover:text-white group-hover:shadow-lg group-hover:shadow-[#308667]/20'}`}>
+    <div className={`flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.3em] px-5 py-2.5 rounded-full border transition-all duration-300 ${isGrid ? 'bg-[#308667] text-white border-transparent shadow-md' : 'text-[#308667] bg-[#308667]/5 border-[#308667]/10 lg:group-hover:bg-[#308667] lg:group-hover:text-white lg:group-hover:shadow-lg lg:group-hover:shadow-[#308667]/20'}`}>
         <FaPlus size={7} /> View Profile
     </div>
   </motion.div>

@@ -11,6 +11,7 @@ import ETBC from '../assets/images_as_icons/ETBC.png';
 import water from '../assets/images_as_icons/water.png'; 
 import agriculture from '../assets/images_as_icons/agriculture.png'; 
 import sugar from '../assets/images_as_icons/sugar.png'; 
+import tele from '../assets/images_as_icons/ethiotele.png';
 
 export type Partner = {
   name: string;
@@ -109,6 +110,13 @@ export const LOCAL_PARTNERS: Partner[] = [
       "Provides potable water supply and wastewater management services for Addis Ababa.",
     website: "https://aawsa.gov.et/",
       icon:   React.createElement('img', { src: water, alt: 'Water and Sewerage Authority', className: 'w-10 h-10 object-contain' }),
+  },
+    {
+    name: "Ethio Telecom",
+    description:
+      "Provides telecommunications services across Ethiopia.",
+    website: "https://www.ethiotelecom.et/",
+      icon: React.createElement('img', { src: tele, alt: 'Ethio Telecom', className: 'w-10 h-10 object-contain' }),
   },
 
 ];
