@@ -90,7 +90,7 @@ const Home: React.FC = () => {
         {/* Parallax Background Text */}
         <motion.div
           style={{ y: useScrollParallax(0.2) }}
-          className="absolute top-24 left-4 md:left-10 text-[6rem] md:text-[12rem] font-black text-gray-100/80 select-none z-0 tracking-tighter opacity-100"
+          className="absolute top-24 left-4 md:left-10 text-[5rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-black text-gray-100/80 select-none z-0 tracking-tighter opacity-100"
         >
           SABOLLA
         </motion.div>
@@ -121,7 +121,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="w-full lg:w-[55%]">
               <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                <h1 className="text-4xl md:text-7xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tighter uppercase mb-6">
+                <h1 className="text-4xl md:text-5xl lg:text-[2.5 rem] xl:text-6xl font-black leading-[1.1] tracking-tighter uppercase mb-6">
                   Your <br />
                   <div className="relative inline-block w-full min-h-[1.2em]">
                     <AnimatePresence mode="wait">
@@ -330,7 +330,7 @@ const Home: React.FC = () => {
       <section className="relative py-32 bg-white">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="text-center mb-24">
-            <h2 className="text-5xl md:text-7xl font-black text-[#122C21] uppercase tracking-tighter mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#122C21] uppercase tracking-tighter mb-6">
               Trusted <span className="text-[#308667]">Partners</span>
             </h2>
           </div>
