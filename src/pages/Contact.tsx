@@ -2,132 +2,133 @@ import * as React from 'react';
 import { CONTACT_INFO } from '../data/mockData';
 import ContactForm from '../components/ui/ContactForm';
 import { motion } from 'framer-motion';
-import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt, FaClock } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt, FaClock, FaExternalLinkAlt } from 'react-icons/fa';
 
 const ContactPage: React.FC = () => {
+  // Replace this with your actual coordinates or address string
+  const encodedAddress = encodeURIComponent(CONTACT_INFO.address);
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${encodedAddress}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  const googleMapsRedirect = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+
   return (
-    <div className="bg-[#F9F2D6] min-h-screen font-['Montserrat']">
+    <div className="bg-[#F9F2D6] min-h-screen font-['Montserrat'] selection:bg-[#308667] selection:text-white">
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative bg-[#122C21] pt-48 pb-32 overflow-hidden shadow-2xl">
+      <section className="relative bg-[#122C21] pt-48 pb-40 overflow-hidden">
+        {/* Decorative Background Pattern */}
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
           style={{ backgroundImage: `url('/pattern.png')`, backgroundSize: '450px' }}
         />
-        <div className="container mx-auto px-6 relative z-10 max-w-7xl text-center">
+        {/* Animated Radial Glow */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#308667] rounded-full blur-[120px] opacity-20" />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+        <div className="container mx-auto px-6 relative z-10 max-w-7xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-black text-[#F9F2D6] uppercase tracking-tighter leading-[0.85] mb-8"
+            transition={{ duration: 0.6 }}
           >
-            Get In <span className="text-[#308667]">Touch</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-[#F9F2D6]/70 text-lg md:text-xl max-w-3xl mx-auto font-medium"
-          >
-            Whether you are a global manufacturer looking to enter the Ethiopian market
-            or a local entity seeking premium solutions, our experts are ready to assist.
-          </motion.p>
+            <h1 className="text-6xl md:text-8xl font-black text-[#F9F2D6] uppercase tracking-tighter leading-[0.85] mb-8">
+              Get In <span className="text-[#308667] italic">Touch</span>
+            </h1>
+            <p className="text-[#F9F2D6]/80 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+              Partner with Ethiopia's leading industrial intelligence firm.
+              Our experts are ready to facilitate your next strategic move.
+            </p>
+          </motion.div>
         </div>
       </section>
 
       {/* ================= MAIN CONTENT ================= */}
-      <div className="container mx-auto px-6 max-w-7xl -mt-20 relative z-30 pb-32">
-        <div className="container mx-auto px-6 max-w-7xl -mt-20 relative z-30 pb-32">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="bg-white shadow-[0_20px_60px_-15px_rgba(18,44,33,0.15)] rounded-[3rem] border border-[#122C21]/5 overflow-hidden"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="container mx-auto px-6 max-w-7xl -mt-24 relative z-30 pb-32">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="bg-white shadow-[0_40px_100px_-20px_rgba(18,44,33,0.2)] rounded-[3rem] overflow-hidden border border-white/20"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12">
 
-              {/* CONTACT INFORMATION PANEL (LEFT) */}
-              <div className="p-12 md:p-16 space-y-10 border-b lg:border-b-0 lg:border-r border-[#122C21]/5">
-                <div>
-                  <h2 className="text-xs font-black text-[#308667] uppercase tracking-[0.5em] mb-4">Intelligence</h2>
-                  <h3 className="text-4xl font-black text-[#122C21] uppercase tracking-tighter mb-10">Our Headquarters</h3>
-                </div>
+            {/* CONTACT INFORMATION PANEL (LEFT - 5 Cols) */}
+            <div className="lg:col-span-5 p-10 md:p-16 bg-[#122C21] text-[#F9F2D6] space-y-12">
 
-                <div className="space-y-10">
-                  {/* Address */}
-                  <div className="flex gap-6 group">
-                    <div className="w-14 h-14 bg-[#F9F2D6] rounded-2xl flex items-center justify-center text-[#122C21] shrink-0 group-hover:bg-[#308667] group-hover:text-white transition-all">
-                      <FaMapMarkerAlt size={24} />
+
+              <div className="space-y-8">
+                {/* Contact Items */}
+                {[
+                  { icon: FaMapMarkerAlt, label: 'Location', value: CONTACT_INFO.address, link: googleMapsRedirect },
+                  { icon: FaEnvelope, label: 'Email', value: CONTACT_INFO.email, link: `mailto:${CONTACT_INFO.email}` },
+                  { icon: FaPhoneAlt, label: 'Phone', value: CONTACT_INFO.phone, link: `tel:${CONTACT_INFO.phone}` },
+                  { icon: FaClock, label: 'Business Hours', value: 'Mon — Fri: 8:30 AM - 5:30 PM', link: null },
+                ].map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ x: 10 }}
+                    className="flex gap-6 group cursor-pointer"
+                  >
+                    <div className="w-12 h-12 bg-[#308667]/20 rounded-xl flex items-center justify-center text-[#308667] group-hover:bg-[#308667] group-hover:text-white transition-all duration-300">
+                      <item.icon size={20} />
                     </div>
                     <div>
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-[#308667] mb-2">Location</h4>
-                      <p className="text-[#09140F] text-lg font-bold leading-tight">{CONTACT_INFO.address}</p>
+                      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#308667] mb-1">{item.label}</h4>
+                      {item.link ? (
+                        <a href={item.link} target={item.label === 'Location' ? "_blank" : "_self"} className="text-lg font-bold hover:text-[#308667] transition-colors break-words">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="text-lg font-bold">{item.value}</p>
+                      )}
                     </div>
-                  </div>
-
-                  {/* Email */}
-                  <div className="flex gap-6 group">
-                    <div className="w-14 h-14 bg-[#F9F2D6] rounded-2xl flex items-center justify-center text-[#122C21] shrink-0 group-hover:bg-[#308667] group-hover:text-white transition-all">
-                      <FaEnvelope size={24} />
-                    </div>
-                    <div>
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-[#308667] mb-2">Email</h4>
-                      <a href={`mailto:${CONTACT_INFO.email}`} className="text-[#09140F] text-xl font-bold hover:text-[#308667] transition-colors">
-                        {CONTACT_INFO.email}
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Phone */}
-                  <div className="flex gap-6 group">
-                    <div className="w-14 h-14 bg-[#F9F2D6] rounded-2xl flex items-center justify-center text-[#122C21] shrink-0 group-hover:bg-[#308667] group-hover:text-white transition-all">
-                      <FaPhoneAlt size={24} />
-                    </div>
-                    <div>
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-[#308667] mb-2">Phone</h4>
-                      <a href={`tel:${CONTACT_INFO.phone}`} className="text-[#09140F] text-xl font-bold hover:text-[#308667] transition-colors">
-                        {CONTACT_INFO.phone}
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Business Hours */}
-                  <div className="flex gap-6 group">
-                    <div className="w-14 h-14 bg-[#F9F2D6] rounded-2xl flex items-center justify-center text-[#122C21] shrink-0 group-hover:bg-[#308667] group-hover:text-white transition-all">
-                      <FaClock size={24} />
-                    </div>
-                    <div>
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-[#308667] mb-2">Hours</h4>
-                      <p className="text-[#09140F] text-lg font-bold">Mon — Fri: 8:30 AM - 5:30 PM</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Map Embed Container */}
-                <div className="mt-12 overflow-hidden rounded-[2rem] shadow-2xl border-4 border-white grayscale hover:grayscale-0 transition-all duration-700">
-                  <iframe
-                    title="SABOLLA Location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5401880486016!2d38.7490!3d9.0080!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwMDAnMjguOCJOIDM4wrA0NScwMC4wIkU!5e0!3m2!1sen!2set!4v1620000000000"
-                    width="100%"
-                    height="300"
-                    className="border-0"
-                    allowFullScreen
-                    loading="lazy"
-                  />
-                </div>
+                  </motion.div>
+                ))}
               </div>
 
-              {/* CONTACT FORM PANEL (RIGHT) */}
-              <div className="p-12 md:p-16 bg-[#F9F2D6]/10">
-                <h2 className="text-xs font-black text-[#308667] uppercase tracking-[0.5em] mb-4">Direct Inquiry</h2>
-                <h3 className="text-4xl font-black text-[#122C21] uppercase tracking-tighter mb-10">Request Intelligence</h3>
-                <ContactForm />
+              {/* Enhanced Map Embed */}
+              <div className="relative mt-12 group overflow-hidden rounded-[2rem] border-2 border-[#308667]/30">
+                <div className="absolute inset-0 bg-[#308667]/10 z-10 pointer-events-none transition-opacity group-hover:opacity-0" />
+                <iframe
+                  title="SABOLLA Location"
+                  src={mapEmbedUrl}
+                  width="100%"
+                  height="250"
+                  className="border-0 grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
+                  allowFullScreen
+                  loading="lazy"
+                />
+                <a
+                  href={googleMapsRedirect}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-4 right-4 z-20 bg-white text-[#122C21] p-3 rounded-full shadow-xl hover:bg-[#308667] hover:text-white transition-all group"
+                >
+                  <FaExternalLinkAlt size={16} />
+                </a>
               </div>
-
             </div>
-          </motion.div>
-        </div>
+
+            {/* CONTACT FORM PANEL (RIGHT - 7 Cols) */}
+            <div className="lg:col-span-7 p-10 md:p-16 bg-[#FDFBF2]">
+              <div className="max-w-2xl">
+                <h2 className="text-xs font-black text-[#308667] uppercase tracking-[0.5em] mb-4">Direct Inquiry</h2>
+                <h3 className="text-4xl font-black text-[#122C21] uppercase tracking-tighter mb-4">Request Intelligence</h3>
+                <p className="text-[#122C21]/60 font-medium mb-10">
+                  Fill out the form below and a sector specialist will reach out within 24 hours.
+                </p>
+
+                <div className="relative">
+                  {/* Decorative element for the form area */}
+                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#308667]/5 rounded-full blur-3xl" />
+                  <ContactForm />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </motion.div>
+
+        {/* Subtle Footer Note */}
+
       </div>
     </div>
   );

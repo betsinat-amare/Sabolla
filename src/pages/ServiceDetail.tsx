@@ -6,7 +6,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 // 1. IMPORT YOUR LOCAL ASSET
 import bgPattern from "../assets/bg_pattern/image.png";
 import Topfooter from '../components/layout/Topfooter';
-import { advisory, sourcing } from '../assets/asset';
+import { advisory, market, sourcing } from '../assets/asset';
 
 // --- SERVICE DATA (EXTRACTED FROM UPLOADED IMAGES) ---
 const DETAILED_SERVICES: Record<string, any> = {
@@ -20,7 +20,7 @@ const DETAILED_SERVICES: Record<string, any> = {
     name: "Local Market Assessments",
     intro: "Sabolla conducts comprehensive local market assessments to provide international partners with a clear understanding of Ethiopia’s dynamic business environment. Using extensive local networks, field intelligence, and data analytics, we evaluate customer preferences, demand patterns, competitor activity, and emerging trends. Our studies identify potential buyers, distributors, and strategic project partners while monitoring government procurement pipelines, donor-funded projects, and sector-specific opportunities.",
     outcome: "In addition to quantitative research, we conduct field surveys, in-person interviews, and on-site validation to ensure the accuracy and reliability of our findings. Our ongoing market intelligence reports keep partners updated on shifts in consumer behavior, competitive moves, and regulatory developments, enabling them to adapt strategies proactively. This thorough, evidence-based approach helps international businesses reduce uncertainty, increase market penetration, and optimize operational effectiveness.",
-    image: "https://www.shutterstock.com/image-photo/business-2025-graphs-statistics-analyze-600nw-2469749585.jpg"
+    image: market
   },
   "import-export": {
     name: "Import and Export",
@@ -78,7 +78,7 @@ const ServiceDetail: React.FC = () => {
           </div>
 
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="inline-block">
-            <h1 className="text-4xl md:text-6xl mt-20 font-black text-[#F9F2D6] uppercase leading-none tracking-tighter">
+            <h1 className="text-4xl md:text-7xl lg:text-5xl xl:text-6xl mt-20 font-black text-[#F9F2D6] uppercase leading-none tracking-tighter">
               {service.name}
             </h1>
           </motion.div>

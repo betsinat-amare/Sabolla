@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPaperPlane, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 
@@ -14,7 +14,7 @@ const ContactForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
-    
+
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -36,8 +36,8 @@ const ContactForm: React.FC = () => {
   `;
 
   return (
-    <motion.form 
-      onSubmit={handleSubmit} 
+    <motion.form
+      onSubmit={handleSubmit}
       className="space-y-5"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -47,8 +47,8 @@ const ContactForm: React.FC = () => {
           <label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-[#122C21] ml-2">
             Full Name <span className="text-[#308667]">*</span>
           </label>
-          <input 
-            type="text" name="name" id="name" required 
+          <input
+            type="text" name="name" id="name" required
             placeholder="John Doe"
             value={formData.name} onChange={handleChange}
             className={inputClasses}
@@ -58,8 +58,8 @@ const ContactForm: React.FC = () => {
           <label htmlFor="phone" className="text-[10px] font-black uppercase tracking-widest text-[#122C21] ml-2">
             Phone Number
           </label>
-          <input 
-            type="tel" name="phone" id="phone" 
+          <input
+            type="tel" name="phone" id="phone"
             placeholder="+251 ..."
             value={formData.phone} onChange={handleChange}
             className={inputClasses}
@@ -71,8 +71,8 @@ const ContactForm: React.FC = () => {
         <label htmlFor="email" className="text-[10px] font-black uppercase tracking-widest text-[#122C21] ml-2">
           Email Address <span className="text-[#308667]">*</span>
         </label>
-        <input 
-          type="email" name="email" id="email" required 
+        <input
+          type="email" name="email" id="email" required
           placeholder="partnerships@company.com"
           value={formData.email} onChange={handleChange}
           className={inputClasses}
@@ -83,8 +83,8 @@ const ContactForm: React.FC = () => {
         <label htmlFor="message" className="text-[10px] font-black uppercase tracking-widest text-[#122C21] ml-2">
           Inquiry Details <span className="text-[#308667]">*</span>
         </label>
-        <textarea 
-          name="message" id="message" rows={5} required 
+        <textarea
+          name="message" id="message" rows={5} required
           placeholder="How can Sabolla assist your strategic objectives?"
           value={formData.message} onChange={handleChange}
           className={`${inputClasses} resize-none`}
@@ -97,8 +97,8 @@ const ContactForm: React.FC = () => {
         className={`
           w-full py-5 rounded-2xl text-sm font-black uppercase tracking-[0.3em] 
           transition-all duration-500 flex items-center justify-center gap-3 shadow-xl
-          ${status === 'submitting' 
-            ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
+          ${status === 'submitting'
+            ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
             : 'bg-[#122C21] text-[#F9F2D6] hover:bg-[#308667] hover:shadow-[0_15px_30px_rgba(48,134,103,0.3)] hover:-translate-y-1'}
         `}
       >
@@ -117,7 +117,7 @@ const ContactForm: React.FC = () => {
 
       <AnimatePresence>
         {status === 'success' && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -127,7 +127,7 @@ const ContactForm: React.FC = () => {
           </motion.div>
         )}
         {status === 'error' && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}

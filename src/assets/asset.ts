@@ -4,6 +4,7 @@ import sourcing from '../assets/sourcing.jpg';
 import transportation from '../assets/transportation.jpg';
 import water from '../assets/water_swage.jpg';
 import advisory from '../assets/advisory.jpeg';
+import market from '../assets/market.jpg'
 
 
 export {
@@ -13,4 +14,5 @@ export {
     transportation,
     water,
     advisory,
+    market
 }

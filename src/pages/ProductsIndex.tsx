@@ -82,7 +82,7 @@ const ProductsIndex: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="text-5xl md:text-7xl font-black text-[#F9F2D6] mb-8 uppercase tracking-tighter leading-none">
+            <h1 className="text-4xl md:text-7xl lg:text-5xl xl:text-6xl font-black text-[#F9F2D6] mb-8 uppercase tracking-tighter leading-none">
               Managed <span className="text-[#0B1A13]">Commodities</span>
             </h1>
             <p className="text-xl md:text-2xl text-[#F9F2D6]/50 max-w-4xl mx-auto font-bold italic pb-12 inline-block">

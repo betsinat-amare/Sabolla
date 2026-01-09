@@ -109,7 +109,7 @@ const ProductDetail: React.FC = () => {
           </div>
 
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="inline-block">
-            <h1 className="text-4xl md:text-6xl mt-20 font-black text-[#F9F2D6] uppercase leading-none tracking-tighter">
+            <h1 className="text-4xl md:text-7xl lg:text-5xl xl:text-6xl mt-20 font-black text-[#F9F2D6] uppercase leading-none tracking-tighter">
               {product.name}
             </h1>
           </motion.div>

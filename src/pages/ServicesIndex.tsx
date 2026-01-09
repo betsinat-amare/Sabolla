@@ -6,7 +6,7 @@ import { FaShip, FaArrowRight, FaChartLine, FaGavel, FaBoxOpen } from 'react-ico
 // IMPORT LOCAL ASSET
 import bgPattern from "../assets/bg_pattern/image.png";
 import Topfooter from '../components/layout/Topfooter';
-import { advisory, sourcing } from '../assets/asset';
+import { advisory, market, sourcing } from '../assets/asset';
 
 const SERVICES_LIST = [
   {
@@ -20,7 +20,7 @@ const SERVICES_LIST = [
     name: "Market Assessments",
     slug: "market-assessments",
     shortDesc: "Comprehensive field intelligence and data analytics to evaluate demand, competitor activity, and government procurement pipelines.",
-    image: "https://www.shutterstock.com/image-photo/business-2025-graphs-statistics-analyze-600nw-2469749585.jpg"
+    image: market
   },
   {
     name: "Import & Export",
@@ -35,7 +35,6 @@ const SERVICES_LIST = [
     image: sourcing
   }
 ];
-
 const ServicesIndex: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#F9F2D6] font-['Montserrat'] selection:bg-[#308667] selection:text-white">
@@ -57,7 +56,7 @@ const ServicesIndex: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl md:text-7xl font-black text-[#F9F2D6] mb-8 uppercase tracking-tighter leading-none">
+            <h1 className="text-4xl md:text-7xl lg:text-5xl xl:text-6xl font-black text-[#F9F2D6] mb-8 uppercase tracking-tighter leading-none">
               Strategic <span className="text-[#0B1A13] ">Trade</span>
             </h1>
             <p className="text-lg md:text-xl text-[#F9F2D6]/70 font-bold italic inline-block pb-8">
