@@ -84,6 +84,20 @@ const ContactPage: React.FC = () => {
                 ))}
               </div>
 
+                  {/* Phone */}
+                  <div className="flex gap-6 group">
+                    <div className="w-14 h-14 bg-[#F9F2D6] rounded-2xl flex items-center justify-center text-[#122C21] shrink-0 group-hover:bg-[#308667] group-hover:text-white transition-all">
+                      <FaPhoneAlt size={24} />
+                    </div>
+                    <div>
+                      <h4 className="text-[10px] font-black uppercase tracking-widest text-[#308667] mb-2">Phone</h4>
+                      {CONTACT_INFO.phones.map((phone, idx) => (
+                        <a key={idx} href={`tel:${phone.replace(/\s+/g, '')}`} className="text-[#09140F] text-xl font-bold hover:text-[#308667] transition-colors block">
+                          {phone}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
               {/* Enhanced Map Embed */}
               <div className="relative mt-12 group overflow-hidden rounded-[2rem] border-2 border-[#308667]/30">
                 <div className="absolute inset-0 bg-[#308667]/10 z-10 pointer-events-none transition-opacity group-hover:opacity-0" />

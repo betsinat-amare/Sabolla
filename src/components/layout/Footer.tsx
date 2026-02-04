@@ -47,11 +47,9 @@ const Footer: React.FC = () => {
               Ethiopia's growing market through expert trade representation and logistics.
             </p>
             <div className="flex gap-4">
-              {[FaLinkedin].map((Icon, idx) => (
-                <a key={idx} href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#308667] transition-all text-white border border-white/10 hover:border-[#308667] group">
-                  <Icon size={16} className="group-hover:scale-110 transition-transform" />
-                </a>
-              ))}
+              <a href={CONTACT_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#308667] transition-all text-white border border-white/10 hover:border-[#308667] group">
+                <FaLinkedin size={16} className="group-hover:scale-110 transition-transform" />
+              </a>
             </div>
           </div>
 
@@ -99,15 +97,16 @@ const Footer: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4 items-center group">
+              <div className="flex gap-4 items-start group">
                 <div className="w-8 h-8 rounded-lg bg-[#308667]/10 flex items-center justify-center shrink-0 text-[#308667] group-hover:bg-[#308667] group-hover:text-white transition-colors">
                   <FaPhoneAlt size={14} />
                 </div>
                 <div>
-
-                  <a href={`tel:${CONTACT_INFO.phone}`} className="text-[#F9F2D6]/90 hover:text-[#308667] transition-colors block">
-                    {CONTACT_INFO.phone}
-                  </a>
+                  {CONTACT_INFO.phones.map((phone, idx) => (
+                    <a key={idx} href={`tel:${phone.replace(/\s+/g, '')}`} className="text-[#F9F2D6]/90 hover:text-[#308667] transition-colors block">
+                      {phone}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>

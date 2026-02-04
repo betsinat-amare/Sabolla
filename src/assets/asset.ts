@@ -1,13 +1,9 @@
-import award from '../assets/Award/award.png';
-import fire from '../assets/fire_disaster.jpg';
-import sourcing from '../assets/sourcing.jpg';
-import transportation from '../assets/transportation.jpg';
-import water from '../assets/water_swage.jpg';
-import advisory from '../assets/advisory.jpeg';
-import market from '../assets/market.jpg';
-import Business from '../assets/Business.png';
-import safety from '../assets/safety_security.jpg'
-import military from '../assets/military.jpg';
+import award from './Award/award.png';
+import fire from './product_images/fire_disaster.jpg';
+import sourcing from './sourcing.jpg';
+import transportation from './product_images/transportation.jpg';
+import water from './product_images/water_swage.jpg';
+import advisory from './advisory.jpeg';
 
 
 export {
