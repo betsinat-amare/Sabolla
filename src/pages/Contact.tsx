@@ -86,9 +86,11 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="text-[10px] font-black uppercase tracking-widest text-[#308667] mb-2">Phone</h4>
-                      <a href={`tel:${CONTACT_INFO.phone}`} className="text-[#09140F] text-xl font-bold hover:text-[#308667] transition-colors">
-                        {CONTACT_INFO.phone}
-                      </a>
+                      {CONTACT_INFO.phones.map((phone, idx) => (
+                        <a key={idx} href={`tel:${phone.replace(/\s+/g, '')}`} className="text-[#09140F] text-xl font-bold hover:text-[#308667] transition-colors block">
+                          {phone}
+                        </a>
+                      ))}
                     </div>
                   </div>
 
