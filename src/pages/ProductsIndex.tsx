@@ -6,59 +6,65 @@ import { FaArrowRight } from 'react-icons/fa';
 // IMPORT LOCAL ASSET
 import bgPattern from "../assets/bg_pattern/image.png";
 import Topfooter from '../components/layout/Topfooter';
-import { fire, military, safety, transportation, water } from '../assets/asset';
+
+// Product Images
+import aviationImg from "../assets/product_images/aviation.jpg";
+import militaryImg from "../assets/product_images/military.jpg";
+import fireImg from "../assets/product_images/fire_disaster.jpg";
+import agricultureImg from "../assets/product_images/agriculture.png";
+import waterImg from "../assets/product_images/water_swage.jpg";
+import powerImg from "../assets/product_images/power_and_energy.png";
+import transportationImg from "../assets/product_images/transportation.jpg";
+import safetyImg from "../assets/product_images/safty_and_security.jpg"
 
 const PRODUCT_CATEGORIES = [
   {
     name: "Aviation",
     slug: "aviation",
     desc: "Critical communication, navigation, and information-management systems for air traffic and airports.",
-    image: "https://corporate.ethiopianairlines.com/images/default-source/corporate-image/600-x-400-px-aircraft-207559ff99f634e0eb3d4ef8ab0252e90.jpg?sfvrsn=6a41cd38_0"
+    image: aviationImg
   },
   {
     name: "Military",
     slug: "military",
     desc: "Advanced defense technologies and secure communication systems meeting exacting military standards.",
-    image: military
+    image: militaryImg
   },
   {
     name: "Fire & Disaster Risk",
     slug: "fire-disaster",
     desc: "Extensive range of firefighting trucks, aerial ladders, and emergency-response equipment.",
-    image: fire
-
+    image: fireImg
   },
   {
     name: "Safety & Security",
     slug: "safety-security",
     desc: "Specialized protective gear, breathing apparatus, and suits for high-risk industrial environments.",
-    image: safety
+    image: safetyImg
   },
   {
     name: "Agricultural Products",
     slug: "agriculture",
     desc: "Food-grade hermetic storage, post-harvest protection, and essential farming implements.",
-    image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80&w=800"
+    image: agricultureImg
   },
   {
     name: "Water & Sewerage",
     slug: "water-sewerage",
     desc: "Infrastructure equipment including jetting trucks, water meters, and urban sanitation pumps.",
-    image: water
-    // "https://images.unsplash.com/photo-1542044896530-05d85be9b11a?auto=format&fit=crop&q=80&w=800"
+    image: waterImg
   },
   {
     name: "Power & Energy",
     slug: "power-energy",
     desc: "Electrical infrastructure components, transformers, and scalable energy system solutions.",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=800"
+    image: powerImg
   },
   {
     name: "Transportation & Storage",
     slug: "transportation",
     desc: "Heavy machinery, reachstackers, specialized tires, and global logistics storage solutions.",
-    image: transportation
-    // "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800"
+    image: transportationImg
   }
 ];
 
