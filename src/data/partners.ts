@@ -1,6 +1,5 @@
 
 import type { ReactNode } from 'react';
-import ASI from '../assets/global_images/ASI.png'; 
 import FIRECHEM from '../assets/global_images/FIRECHEM.png'; 
 import JSHK from '../assets/global_images/JSHK.png'; 
 import leviathan from '../assets/global_images/leviathan.png'; 

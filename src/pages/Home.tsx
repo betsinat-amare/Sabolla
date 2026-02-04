@@ -50,7 +50,7 @@ const useScrollParallax = (speed: number) => {
 };
 
 const Home: React.FC = () => {
-  const dynamicTexts = ["Gateway ", "Official Trade Representation", "Market Entry Solution", "Trade Facilitation and Compliance Pathway"];
+  const dynamicTexts = ["Gateway ", "Gateway", "Trade Representation", "Market Entry", "Trade Facilitation Pathway"];
   const [textIndex, setTextIndex] = React.useState(0);
 
   React.useEffect(() => {
