@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight, FaExternalLinkAlt, FaTh, FaTimes, FaPlus } from "react-icons/fa";
-import { type Partner } from "../../data/partners";
+import { type Partner } from "../../types/partner";
 
 interface PartnersShowcaseProps {
   partners: Partner[];
@@ -118,10 +118,15 @@ const PartnersShowcase: React.FC<PartnersShowcaseProps> = ({ partners }) => {
               </button>
 
               <div className="flex justify-center mb-6">
-                {React.isValidElement(activePartner.icon) ?
-                  React.cloneElement(activePartner.icon as React.ReactElement, { style: { width: '120px', height: '120px', objectFit: 'contain' } }) :
-                  <span className="text-8xl">{activePartner.icon}</span>
-                }
+                {activePartner.logo ? (
+                  activePartner.isEmoji ? (
+                    <span className="text-8xl">{activePartner.logo}</span>
+                  ) : (
+                    <img src={activePartner.logo} alt={activePartner.name} style={{ width: '120px', height: '120px', objectFit: 'contain' }} />
+                  )
+                ) : (
+                  <span className="text-8xl">🤝</span>
+                )}
               </div>
 
               <h3 className="text-xl font-black text-[#122C21] uppercase mb-4 tracking-tighter">{activePartner.name}</h3>
@@ -155,14 +160,18 @@ const PartnerCard = ({ partner, onClick, isGrid = false }: { partner: Partner, o
     className={`${isGrid ? 'w-full' : 'min-w-[320px]'} bg-white rounded-[2.5rem] shadow-sm p-10 flex flex-col items-center justify-center text-center border border-[#122C21]/10 cursor-pointer transition-all duration-300 group snap-center whitespace-normal hover:shadow-2xl hover:shadow-[#308667]/10`}
   >
     <div className="mb-6 h-28 flex items-center justify-center w-full">
-      {typeof partner.icon === "string" ? (
-        <span className="text-6xl block">{partner.icon}</span>
+      {partner.logo ? (
+        partner.isEmoji ? (
+          <span className="text-6xl block">{partner.logo}</span>
+        ) : (
+          <img
+            src={partner.logo}
+            alt={partner.name}
+            className="w-full max-w-[100px] h-28 object-contain transition-all duration-700 grayscale-0 opacity-100"
+          />
+        )
       ) : (
-        React.isValidElement(partner.icon) ?
-          React.cloneElement(partner.icon as React.ReactElement, {
-            style: { width: '100px', height: '100px', objectFit: 'contain' },
-            className: `transition-all duration-700 grayscale-0 opacity-100`
-          }) : <span className="text-5xl">🤝</span>
+        <span className="text-5xl">🤝</span>
       )}
     </div>
 
