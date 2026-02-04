@@ -8,14 +8,14 @@ import bgPattern from "../assets/bg_pattern/image.png";
 import Topfooter from '../components/layout/Topfooter';
 
 // Product Images
-import aviationImg from "../assets/product_images/aviation.JPG";
-import militaryImg from "../assets/product_images/military.JPG";
+import aviationImg from "../assets/product_images/aviation.jpg";
+import militaryImg from "../assets/product_images/military.jpg";
 import fireImg from "../assets/product_images/fire_disaster.jpg";
-import safetyImg from "../assets/product_images/safty_and_security.JPG";
 import agricultureImg from "../assets/product_images/agriculture.png";
 import waterImg from "../assets/product_images/water_swage.jpg";
 import powerImg from "../assets/product_images/power_and_energy.png";
 import transportationImg from "../assets/product_images/transportation.jpg";
+import safetyImg from "../assets/product_images/safty_and_security.jpg"
 
 const PRODUCT_CATEGORIES = [
   {
